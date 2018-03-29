@@ -12,10 +12,10 @@
     <string name="key_seasonVotes">seasonVotes</string>
     <string name="key_seasonRating">seasonRating</string>
 
-    <string name="lbl_season">Season </string>
-    <string name="lbl_episodes">Episodes: </string>
-    <string name="lbl_votes">Votes: </string>
+    <string name="lbl_season">Season\u0020</string>
+    <string name="lbl_episodes">Episodes:\u0020</string>
+    <string name="lbl_votes">Votes:\u0020</string>
     <string name="lbl_episode_num">E</string>
-    <string name="lbl_rating">Rating: </string>
+    <string name="lbl_rating">Rating:\u0020</string>
 
 </resources>
