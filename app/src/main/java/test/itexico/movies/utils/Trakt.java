@@ -2,6 +2,7 @@ package test.itexico.movies.utils;
 
 public class Trakt {
 
+    private static String traktURL = "https://private-18a5d-trakt.apiary-proxy.com";
     private static String clientID = "ee910a122f9dbf4808cb68cd4e935401d6806b51b9cc911f22d1eeefe730ed31";
 
     public static String getClientID(){
@@ -9,11 +10,11 @@ public class Trakt {
     }
 
     public static String getSeasonsURL() {
-        return "https://api.trakt.tv/shows/game-of-thrones/seasons"+"?extended=full";
+        return traktURL+"/shows/game-of-thrones/seasons"+"?extended=full";
     }
 
     public static String getEpisodesURL(String seasonId) {
-        return "https://api.trakt.tv/shows/game-of-thrones/seasons/"+seasonId+"?extended=full";
+        return traktURL+"/shows/game-of-thrones/seasons/"+seasonId+"?extended=full";
     }
 
     public static String getImagesService(String seasonId) {
