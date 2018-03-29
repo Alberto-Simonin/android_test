@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Movies</string>
+
+    <string name="err_no_data_title">Datos no encontrados</string>
+    <string name="err_no_data_text">No pudimos encontrar la informacion que buscas, vuelve a intentarlo.</string>
+    <string name="err_auth_title">Servicio no disponible</string>
+    <string name="err_auth_text">El servicio no esta disponible, intenta mas tarde.</string>
+
+    <string name="key_sesionId">sesionId</string>
+    <string name="key_seasonNum">seasonNum</string>
+    <string name="key_seasonEpisodes">seasonEpisodes</string>
+    <string name="key_seasonVotes">seasonVotes</string>
+    <string name="key_seasonRating">seasonRating</string>
+
+    <string name="lbl_season">Season </string>
+    <string name="lbl_episodes">Episodes: </string>
+    <string name="lbl_votes">Votes: </string>
+    <string name="lbl_episode_num">E</string>
+    <string name="lbl_rating">Rating: </string>
+
+</resources>
