@@ -26,16 +26,16 @@ import test.itexico.movies.R;
 import test.itexico.movies.adapters.ListEpisodesAdapter;
 //import test.itexico.movies.adapters.ListEpisodesAdapter.HeaderViewHolder;
 import test.itexico.movies.managers.RequestManager;
-import test.itexico.movies.model.EpisodesActivityModelImpl;
+import test.itexico.movies.model.EpisodesListModelImpl;
 import test.itexico.movies.utils.Trakt;
 
-public class EpisodesActivityPresenterImpl implements EpisodesActivityPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
+public class EpisodesListPresenterImpl implements EpisodesListPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
 
     private final ConstraintLayout header;
     private Context context;
     private RecyclerView recyclerView;
 
-    public EpisodesActivityPresenterImpl(Context context, ConstraintLayout header, RecyclerView recyclerView){
+    public EpisodesListPresenterImpl(Context context, ConstraintLayout header, RecyclerView recyclerView){
         this.context = context;
         this.header = header;
         this.recyclerView = recyclerView;
@@ -55,7 +55,7 @@ public class EpisodesActivityPresenterImpl implements EpisodesActivityPresenter,
 
     @Override
     public void populateEpisodesFromSeason(int seasonId) {
-        EpisodesActivityModelImpl episodesActivityModel = new EpisodesActivityModelImpl(this.context);
+        EpisodesListModelImpl episodesActivityModel = new EpisodesListModelImpl(this.context);
         episodesActivityModel.getData(seasonId,this, this);
     }
 

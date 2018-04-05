@@ -6,42 +6,38 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.GridSeasonsAdapter;
-import test.itexico.movies.model.SeasonsActivityModelImpl;
+import test.itexico.movies.model.SeasonsListModelImpl;
 import test.itexico.movies.view.EpisodesActivity;
 
 
-public class SeasonsActivityPresenterImpl implements SeasonsActivityPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
+public class SeasonsListPresenterImpl implements SeasonsListPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
 
     private final Context context;
     private final RecyclerView view;
     private GridSeasonsAdapter gridSeasonsAdapter;
 
-    public SeasonsActivityPresenterImpl(Context context, RecyclerView view){
+    public SeasonsListPresenterImpl(Context context, RecyclerView view){
         this.context = context;
         this.view = view;
     }
 
     @Override
     public void populateSeasons() {
-        SeasonsActivityModelImpl seasonsActivityModel = new SeasonsActivityModelImpl(this.context);
+        SeasonsListModelImpl seasonsActivityModel = new SeasonsListModelImpl(this.context);
         seasonsActivityModel.getData(this, this);
     }
 

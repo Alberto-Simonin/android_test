@@ -1,6 +1,6 @@
 package test.itexico.movies.presenter;
 
-public interface SeasonsActivityPresenter {
+public interface SeasonsListPresenter {
 
     public void populateSeasons();
 

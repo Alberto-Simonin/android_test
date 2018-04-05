@@ -5,10 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.GridView;
 
 import test.itexico.movies.R;
-import test.itexico.movies.presenter.SeasonsActivityPresenterImpl;
+import test.itexico.movies.presenter.SeasonsListPresenterImpl;
 
 public class SeasonsActivity extends AppCompatActivity {
 
@@ -20,7 +19,7 @@ public class SeasonsActivity extends AppCompatActivity {
         setContentView(R.layout.seasons_activity);
         gridSeasons = (RecyclerView)findViewById(R.id.grid_seasons);
         gridSeasons.setLayoutManager(new GridLayoutManager(this, 2));
-        SeasonsActivityPresenterImpl seasonsActivityPresenter = new SeasonsActivityPresenterImpl(this, gridSeasons);
+        SeasonsListPresenterImpl seasonsActivityPresenter = new SeasonsListPresenterImpl(this, gridSeasons);
         seasonsActivityPresenter.populateSeasons();
     }
 }

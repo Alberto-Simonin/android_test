@@ -9,13 +9,9 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import test.itexico.movies.R;
-import test.itexico.movies.presenter.EpisodesActivityPresenterImpl;
+import test.itexico.movies.presenter.EpisodesListPresenterImpl;
 
 public class EpisodesActivity extends AppCompatActivity {
 
@@ -32,7 +28,7 @@ public class EpisodesActivity extends AppCompatActivity {
         headerLayout = findViewById(R.id.headerLayout);
         listEpisodes.setLayoutManager(new LinearLayoutManager(this));
 
-        EpisodesActivityPresenterImpl episodesActivityPresenter = new EpisodesActivityPresenterImpl(this, headerLayout, listEpisodes);
+        EpisodesListPresenterImpl episodesActivityPresenter = new EpisodesListPresenterImpl(this, headerLayout, listEpisodes);
         episodesActivityPresenter.setHeaderInfo(extras);
         if(Integer.valueOf(seasonId)<0){
             AlertDialog.Builder builder;
