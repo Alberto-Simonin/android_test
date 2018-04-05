@@ -1,10 +1,12 @@
 package test.itexico.movies.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 
 import test.itexico.movies.R;
 
-public class ListEpisodesAdapter extends BaseAdapter {
+public class ListEpisodesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private JSONArray data;
 
@@ -22,12 +24,6 @@ public class ListEpisodesAdapter extends BaseAdapter {
         this.data = data;
     }
 
-    @Override
-    public int getCount() {
-        return data.length();
-    }
-
-    @Override
     public Object getItem(int i) {
         try {
             return data.getJSONObject(i);
@@ -35,6 +31,23 @@ public class ListEpisodesAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View viewLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.episodes_list_item, parent, false);
+        return new ViewHolder(viewLayout);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        try {
+            JSONObject item = (JSONObject) getItem(position);
+            ((ViewHolder)holder).txtEpisodeNum.setText(context.getResources().getString(R.string.lbl_episode_num)+ item.getString("number"));
+            ((ViewHolder)holder).txtEpisodeName.setText(item.getString("title"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -48,35 +61,19 @@ public class ListEpisodesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if(convertView==null){
-            viewHolder = new ViewHolder();
-            convertView = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.episodes_list_item,parent,false);
-            viewHolder.txtEpisodeNum = (TextView) convertView.findViewById(R.id.txt_episode_num);
-            viewHolder.txtEpisodeName = (TextView) convertView.findViewById(R.id.txt_episode_name);
-            convertView.setTag(viewHolder);
-        }
-        else {
-            viewHolder=(ViewHolder)convertView.getTag();
-        }
-
-        JSONObject item = (JSONObject) getItem(i);
-        try {
-            viewHolder.txtEpisodeNum.setText(context.getResources().getString(R.string.lbl_episode_num)+ item.getString("number"));
-            viewHolder.txtEpisodeName.setText(item.getString("title"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return convertView;
+    public int getItemCount() {
+        return data.length();
     }
 
-
-    class ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         protected TextView txtEpisodeNum;
         protected TextView txtEpisodeName;
 
+        public ViewHolder(View itemView) {
+            super(itemView);
+            txtEpisodeNum = itemView.findViewById(R.id.txt_episode_num);
+            txtEpisodeName = itemView.findViewById(R.id.txt_episode_name);
+        }
     }
 }
