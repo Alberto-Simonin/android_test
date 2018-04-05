@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/grid_seasons"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2">
 
-    </GridView>
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>
