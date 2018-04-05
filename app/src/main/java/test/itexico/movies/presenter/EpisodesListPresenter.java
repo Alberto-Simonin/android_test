@@ -1,5 +1,5 @@
 package test.itexico.movies.presenter;
 
-public interface EpisodesActivityPresenter {
+public interface EpisodesListPresenter {
     public void populateEpisodesFromSeason(int seasonId);
 }

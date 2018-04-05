@@ -2,25 +2,20 @@ package test.itexico.movies.model;
 
 import android.content.Context;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.managers.StandardRequest;
 import test.itexico.movies.utils.Trakt;
 
-public class EpisodesActivityModelImpl implements EpisodesActivityModel {
+public class EpisodesListModelImpl implements EpisodesListModel {
 
     private final Context context;
 
-    public EpisodesActivityModelImpl(Context context) {
+    public EpisodesListModelImpl(Context context) {
         this.context = context;
     }
 
