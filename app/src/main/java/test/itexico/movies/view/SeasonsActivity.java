@@ -7,16 +7,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
 
 public class SeasonsActivity extends AppCompatActivity {
+
+    @BindView(R.id.main_container) FrameLayout container;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
-        FrameLayout container = findViewById(R.id.main_container);
-
+        ButterKnife.bind(this);
         if (container != null) {
             if (savedInstanceState != null) {
                 return;
