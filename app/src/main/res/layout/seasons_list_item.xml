@@ -8,8 +8,8 @@
         android:id="@+id/img_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/season_background_placeholder"
-        android:scaleType="center"/>
+        android:src="@drawable/season_background_placeholder"
+        android:scaleType="centerCrop"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
