@@ -3,10 +3,8 @@ package test.itexico.movies.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -24,10 +22,12 @@ import org.json.JSONObject;
 
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.ListEpisodesAdapter;
-//import test.itexico.movies.adapters.ListEpisodesAdapter.HeaderViewHolder;
 import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.model.EpisodesListModelImpl;
 import test.itexico.movies.utils.Trakt;
+import test.itexico.movies.view.DialogAlert;
+
+//import test.itexico.movies.adapters.ListEpisodesAdapter.HeaderViewHolder;
 
 public class EpisodesListPresenterImpl implements EpisodesListPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
 
@@ -61,22 +61,14 @@ public class EpisodesListPresenterImpl implements EpisodesListPresenter, Respons
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.d("Err ", error.toString());
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(context);
-        }
-        builder.setTitle(context.getResources().getString(R.string.err_auth_title))
-                .setMessage(context.getResources().getString(R.string.err_auth_text))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        DialogAlert.show(context,
+                context.getResources().getString(R.string.err_auth_title),
+                context.getResources().getString(R.string.err_auth_text),
+                new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((Activity)context).finish();
                     }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+                });
     }
 
     @Override
