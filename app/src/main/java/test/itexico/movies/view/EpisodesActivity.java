@@ -21,9 +21,10 @@ public class EpisodesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //TODO refactor: migrate to fragments
         Bundle extras = getIntent().getExtras();
         String seasonId = extras.getString(getResources().getString(R.string.key_sesionId));
-        setContentView(R.layout.episodes_activity);
+        setContentView(R.layout.episodes_fragment);
         listEpisodes = findViewById(R.id.list_episodes);
         headerLayout = findViewById(R.id.headerLayout);
         listEpisodes.setLayoutManager(new LinearLayoutManager(this));
