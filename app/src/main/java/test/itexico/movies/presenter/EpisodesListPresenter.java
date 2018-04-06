@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,37 +17,39 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.ListEpisodesAdapter;
 import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.model.Episode;
-import test.itexico.movies.model.EpisodesListModelImpl;
+import test.itexico.movies.model.EpisodesListModel;
 import test.itexico.movies.utils.Trakt;
 import test.itexico.movies.view.DialogAlert;
 
-public class EpisodesListPresenterImpl implements Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
+public class EpisodesListPresenter implements Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
 
     private final ConstraintLayout header;
     private Context context;
     private RecyclerView recyclerView;
+    @BindView(R.id.txt_season) TextView txtSeason;
+    @BindView(R.id.txt_episodes) TextView txtEpisodes;
+    @BindView(R.id.txt_rating) TextView txtRating;
+    @BindView(R.id.txt_votes) TextView txtVotes;
 
-    public EpisodesListPresenterImpl(Context context, ConstraintLayout header, RecyclerView recyclerView){
+    public EpisodesListPresenter(Context context, ConstraintLayout header, RecyclerView recyclerView){
         this.context = context;
         this.header = header;
         this.recyclerView = recyclerView;
     }
 
     public void setHeaderInfo(Bundle extras){
-        TextView txtSeason = header.findViewById(R.id.txt_season);
-        TextView txtEpisodes = header.findViewById(R.id.txt_episodes);
-        TextView txtRating = header.findViewById(R.id.txt_rating);
-        TextView txtVotes = header.findViewById(R.id.txt_votes);
+        ButterKnife.bind(this, header);
 
         txtSeason.setText(context.getResources().getString(R.string.lbl_season)+extras.getInt(context.getResources().getString(R.string.key_seasonNum)));
         txtEpisodes.setText(context.getResources().getString(R.string.lbl_episodes)+extras.getString(context.getResources().getString(R.string.key_seasonEpisodes)));
@@ -55,7 +58,7 @@ public class EpisodesListPresenterImpl implements Response.Listener<ArrayList<Ep
     }
 
     public void populateEpisodesFromSeason(int seasonId) {
-        EpisodesListModelImpl episodesActivityModel = new EpisodesListModelImpl(this.context);
+        EpisodesListModel episodesActivityModel = new EpisodesListModel(this.context);
         episodesActivityModel.getData(seasonId,this, this);
     }
 

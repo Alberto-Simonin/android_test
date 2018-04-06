@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
 import test.itexico.movies.model.Episode;
 
@@ -54,13 +56,12 @@ public class ListEpisodesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        protected TextView txtEpisodeNum;
-        protected TextView txtEpisodeName;
+        @BindView(R.id.txt_episode_num) TextView txtEpisodeNum;
+        @BindView(R.id.txt_episode_name) TextView txtEpisodeName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtEpisodeNum = itemView.findViewById(R.id.txt_episode_num);
-            txtEpisodeName = itemView.findViewById(R.id.txt_episode_name);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

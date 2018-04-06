@@ -8,17 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
-import test.itexico.movies.presenter.SeasonsListPresenterImpl;
+import test.itexico.movies.presenter.SeasonsListPresenter;
 
 public class SeasonsFragment extends Fragment {
+
+    @BindView(R.id.grid_seasons) RecyclerView gridSeasons;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.seasons_fragment, container, false);
-        RecyclerView gridSeasons = (RecyclerView) rootView.findViewById(R.id.grid_seasons);
+        ButterKnife.bind(this, rootView);
         gridSeasons.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        SeasonsListPresenterImpl seasonsActivityPresenter = new SeasonsListPresenterImpl(getContext(), gridSeasons);
+        SeasonsListPresenter seasonsActivityPresenter = new SeasonsListPresenter(getContext(), gridSeasons);
         seasonsActivityPresenter.populateSeasons();
         return rootView;
     }

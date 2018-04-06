@@ -16,11 +16,11 @@ import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.managers.StandardRequest;
 import test.itexico.movies.utils.Trakt;
 
-public class EpisodesListModelImpl {
+public class EpisodesListModel {
 
     private final Context context;
 
-    public EpisodesListModelImpl(Context context) {
+    public EpisodesListModel(Context context) {
         this.context = context;
     }
 

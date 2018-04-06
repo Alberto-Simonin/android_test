@@ -11,10 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
-import test.itexico.movies.presenter.EpisodesListPresenterImpl;
+import test.itexico.movies.presenter.EpisodesListPresenter;
 
 public class EpisodesFragment extends Fragment {
+
+    @BindView(R.id.list_episodes) RecyclerView listEpisodes;
+    @BindView(R.id.headerLayout) ConstraintLayout headerLayout;
 
     @Nullable
     @Override
@@ -24,12 +29,11 @@ public class EpisodesFragment extends Fragment {
         Bundle extras = getArguments();
         String seasonId = extras.getString(getResources().getString(R.string.key_sesionId));
 
-        RecyclerView listEpisodes = rootView.findViewById(R.id.list_episodes);
-        ConstraintLayout headerLayout = rootView.findViewById(R.id.headerLayout);
+        ButterKnife.bind(this, rootView);
 
         listEpisodes.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        EpisodesListPresenterImpl episodesActivityPresenter = new EpisodesListPresenterImpl(getContext(), headerLayout, listEpisodes);
+        EpisodesListPresenter episodesActivityPresenter = new EpisodesListPresenter(getContext(), headerLayout, listEpisodes);
         episodesActivityPresenter.setHeaderInfo(extras);
 
         if(Integer.valueOf(seasonId)<0){
