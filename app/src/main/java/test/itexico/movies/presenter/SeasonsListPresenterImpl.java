@@ -1,13 +1,10 @@
 package test.itexico.movies.presenter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +18,7 @@ import org.json.JSONException;
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.GridSeasonsAdapter;
 import test.itexico.movies.model.SeasonsListModelImpl;
+import test.itexico.movies.view.DialogAlert;
 import test.itexico.movies.view.EpisodesActivity;
 
 
@@ -43,22 +41,14 @@ public class SeasonsListPresenterImpl implements SeasonsListPresenter, Response.
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.d("Err ", error.toString());
-        AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(context);
-        }
-        builder.setTitle(context.getResources().getString(R.string.err_auth_title))
-            .setMessage(context.getResources().getString(R.string.err_auth_text))
-            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    ((Activity)context).finish();
-                }
-            })
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .show();
+        DialogAlert.show(context,
+                context.getResources().getString(R.string.err_auth_title),
+                context.getResources().getString(R.string.err_auth_text),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((Activity)context).finish();
+                    }
+                });
     }
 
     @Override
