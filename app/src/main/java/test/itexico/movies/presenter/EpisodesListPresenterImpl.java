@@ -20,14 +20,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.ListEpisodesAdapter;
 import test.itexico.movies.managers.RequestManager;
+import test.itexico.movies.model.Episode;
 import test.itexico.movies.model.EpisodesListModelImpl;
 import test.itexico.movies.utils.Trakt;
 import test.itexico.movies.view.DialogAlert;
 
-public class EpisodesListPresenterImpl implements Response.Listener<JSONArray>, Response.ErrorListener {
+public class EpisodesListPresenterImpl implements Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
 
     private final ConstraintLayout header;
     private Context context;
@@ -45,7 +48,7 @@ public class EpisodesListPresenterImpl implements Response.Listener<JSONArray>, 
         TextView txtRating = header.findViewById(R.id.txt_rating);
         TextView txtVotes = header.findViewById(R.id.txt_votes);
 
-        txtSeason.setText(context.getResources().getString(R.string.lbl_season)+extras.getString(context.getResources().getString(R.string.key_seasonNum)));
+        txtSeason.setText(context.getResources().getString(R.string.lbl_season)+extras.getInt(context.getResources().getString(R.string.key_seasonNum)));
         txtEpisodes.setText(context.getResources().getString(R.string.lbl_episodes)+extras.getString(context.getResources().getString(R.string.key_seasonEpisodes)));
         txtRating.setText(extras.getString(context.getResources().getString(R.string.key_seasonRating)).substring(0,4));
         txtVotes.setText(context.getResources().getString(R.string.lbl_votes)+extras.getString(context.getResources().getString(R.string.key_seasonVotes)));
@@ -69,57 +72,51 @@ public class EpisodesListPresenterImpl implements Response.Listener<JSONArray>, 
     }
 
     @Override
-    public void onResponse(JSONArray response) {
+    public void onResponse(ArrayList<Episode> response) {
         ListEpisodesAdapter listEpisodesAdapter = new ListEpisodesAdapter(context, response);
         recyclerView.setAdapter(listEpisodesAdapter);
 
         RequestManager requestManager = RequestManager.getInstance(context);
-        try {
-            String i = response.getJSONObject(0).getString("season");
-            String url = Trakt.getImagesService(i);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String path = response.getJSONArray("posters").getJSONObject(1).getString("file_path");
-                        String url = Trakt.getImagesURL(path, "200");
-                        Picasso.get().load(url).into((ImageView) header.findViewById(R.id.img_cover));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        String i = response.get(0).getSeason()+"";
+        String url = Trakt.getImagesService(i);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String path = response.getJSONArray("posters").getJSONObject(1).getString("file_path");
+                    String url = Trakt.getImagesURL(path, "200");
+                    Picasso.get().load(url).into((ImageView) header.findViewById(R.id.img_cover));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Err ", error.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Err ", error.toString());
+            }
+        });
+
+        JsonObjectRequest requestPoster = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String path = response.getJSONArray("posters").getJSONObject(1).getString("file_path");
+                    String url = Trakt.getImagesURL(path, "300");
+                    Picasso.get().load(url).into((ImageView) header.findViewById(R.id.img_poster));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            });
-
-            JsonObjectRequest requestPoster = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String path = response.getJSONArray("posters").getJSONObject(1).getString("file_path");
-                        String url = Trakt.getImagesURL(path, "300");
-                        Picasso.get().load(url).into((ImageView) header.findViewById(R.id.img_poster));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Err ", error.toString());
-                }
-            });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Err ", error.toString());
+            }
+        });
 
 
-            requestManager.addToRequestQueue(request);
-            requestManager.addToRequestQueue(requestPoster);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
+        requestManager.addToRequestQueue(request);
+        requestManager.addToRequestQueue(requestPoster);
     }
 }

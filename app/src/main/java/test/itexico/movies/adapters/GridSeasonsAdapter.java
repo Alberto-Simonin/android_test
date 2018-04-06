@@ -19,42 +19,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import test.itexico.movies.R;
 import test.itexico.movies.managers.RequestManager;
+import test.itexico.movies.model.Season;
 import test.itexico.movies.utils.Trakt;
 
 public class GridSeasonsAdapter extends RecyclerView.Adapter<GridSeasonsAdapter.ViewHolder> {
 
     private final Context context;
-    private final JSONArray data;
+    private final ArrayList<Season> data;
 
-    public GridSeasonsAdapter(Context context, JSONArray data){
+    public GridSeasonsAdapter(Context context, ArrayList<Season> data){
         this.context = context;
         this.data = data;
     }
 
     @Override
     public long getItemId(int i) {
-        try {
-            return data.getJSONObject(i).getInt("number");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        return data.get(i).getNumber();
     }
 
-    public JSONObject getItem(int i) {
-        try {
-            return data.getJSONObject(i);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Season getItem(int i) {
+        return data.get(i);
     }
 
     @Override
     public int getItemCount() {
-        return data.length();
+        return data.size();
     }
 
     @Override
@@ -65,38 +58,33 @@ public class GridSeasonsAdapter extends RecyclerView.Adapter<GridSeasonsAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        try {
-            JSONObject item = getItem(position);
-            viewHolder.txtSeason.setText(context.getResources().getString(R.string.lbl_season)+ item.getString("number"));
-            viewHolder.txtEpisodes.setText(context.getResources().getString(R.string.lbl_episodes)+ item.getString("episode_count"));
-            viewHolder.txtRating.setText(context.getResources().getString(R.string.lbl_rating)+ item.getString("rating").substring(0,4));
+        Season item = getItem(position);
+        viewHolder.txtSeason.setText(context.getResources().getString(R.string.lbl_season)+ item.getNumber());
+        viewHolder.txtEpisodes.setText(context.getResources().getString(R.string.lbl_episodes)+ item.getEpisode_count());
+        viewHolder.txtRating.setText(context.getResources().getString(R.string.lbl_rating)+ item.getRating().substring(0,4));
 
-            RequestManager requestManager = RequestManager.getInstance(context);
-            String url = Trakt.getImagesService(position+"");
-            final ViewHolder finalViewHolder = viewHolder;
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        String path = response.getJSONArray("posters").getJSONObject(0).getString("file_path");
-                        String url = Trakt.getImagesURL(path, "500");
-                        Picasso.get().load(url).into(finalViewHolder.imgCover);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        RequestManager requestManager = RequestManager.getInstance(context);
+        String url = Trakt.getImagesService(position+"");
+        final ViewHolder finalViewHolder = viewHolder;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    String path = response.getJSONArray("posters").getJSONObject(0).getString("file_path");
+                    String url = Trakt.getImagesURL(path, "500");
+                    Picasso.get().load(url).into(finalViewHolder.imgCover);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d("Err ", error.toString());
-                }
-            });
-            requestManager.addToRequestQueue(request);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Err ", error.toString());
+            }
+        });
+        requestManager.addToRequestQueue(request);
     }
 
      class ViewHolder extends RecyclerView.ViewHolder{
