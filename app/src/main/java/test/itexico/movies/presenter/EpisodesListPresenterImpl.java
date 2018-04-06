@@ -27,9 +27,7 @@ import test.itexico.movies.model.EpisodesListModelImpl;
 import test.itexico.movies.utils.Trakt;
 import test.itexico.movies.view.DialogAlert;
 
-//import test.itexico.movies.adapters.ListEpisodesAdapter.HeaderViewHolder;
-
-public class EpisodesListPresenterImpl implements EpisodesListPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
+public class EpisodesListPresenterImpl implements Response.Listener<JSONArray>, Response.ErrorListener {
 
     private final ConstraintLayout header;
     private Context context;
@@ -53,7 +51,6 @@ public class EpisodesListPresenterImpl implements EpisodesListPresenter, Respons
         txtVotes.setText(context.getResources().getString(R.string.lbl_votes)+extras.getString(context.getResources().getString(R.string.key_seasonVotes)));
     }
 
-    @Override
     public void populateEpisodesFromSeason(int seasonId) {
         EpisodesListModelImpl episodesActivityModel = new EpisodesListModelImpl(this.context);
         episodesActivityModel.getData(seasonId,this, this);
