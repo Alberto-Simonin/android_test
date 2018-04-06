@@ -21,6 +21,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import test.itexico.movies.R;
 import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.model.Season;
@@ -88,17 +90,14 @@ public class GridSeasonsAdapter extends RecyclerView.Adapter<GridSeasonsAdapter.
     }
 
      class ViewHolder extends RecyclerView.ViewHolder{
-        public ImageView imgCover;
-        public TextView txtSeason;
-        public TextView txtEpisodes;
-        public TextView txtRating;
+        @BindView(R.id.img_cover) ImageView imgCover;
+        @BindView(R.id.txt_season) TextView txtSeason;
+        @BindView(R.id.txt_episodes) TextView txtEpisodes;
+        @BindView(R.id.txt_rating) TextView txtRating;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtSeason = itemView.findViewById(R.id.txt_season);
-            txtEpisodes = itemView.findViewById(R.id.txt_episodes);
-            txtRating = itemView.findViewById(R.id.txt_rating);
-            imgCover = itemView.findViewById(R.id.img_cover);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

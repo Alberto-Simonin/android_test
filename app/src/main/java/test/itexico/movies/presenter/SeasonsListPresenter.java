@@ -12,32 +12,29 @@ import android.view.View;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.GridSeasonsAdapter;
 import test.itexico.movies.model.Season;
-import test.itexico.movies.model.SeasonsListModelImpl;
+import test.itexico.movies.model.SeasonsListModel;
 import test.itexico.movies.view.DialogAlert;
 import test.itexico.movies.view.EpisodesActivity;
 
 
-public class SeasonsListPresenterImpl implements Response.Listener<ArrayList<Season>>, Response.ErrorListener {
+public class SeasonsListPresenter implements Response.Listener<ArrayList<Season>>, Response.ErrorListener {
 
     private final Context context;
     private final RecyclerView view;
     private GridSeasonsAdapter gridSeasonsAdapter;
 
-    public SeasonsListPresenterImpl(Context context, RecyclerView view){
+    public SeasonsListPresenter(Context context, RecyclerView view){
         this.context = context;
         this.view = view;
     }
 
     public void populateSeasons() {
-        SeasonsListModelImpl seasonsActivityModel = new SeasonsListModelImpl(this.context);
+        SeasonsListModel seasonsActivityModel = new SeasonsListModel(this.context);
         seasonsActivityModel.getData(this, this);
     }
 
