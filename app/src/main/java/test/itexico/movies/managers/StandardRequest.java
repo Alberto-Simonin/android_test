@@ -1,6 +1,5 @@
 package test.itexico.movies.managers;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 
@@ -18,8 +17,8 @@ public class StandardRequest extends JsonArrayRequest {
     }
 
     @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String>  headers = new HashMap<String, String>();
+    public Map<String, String> getHeaders() {
+        Map<String, String>  headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("trackt-api-version", "2");
         headers.put("trackt-api-key", Trakt.getClientID());

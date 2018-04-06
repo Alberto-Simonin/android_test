@@ -41,9 +41,9 @@ public class SeasonsListPresenter implements Response.Listener<ArrayList<Season>
     @Override
     public void onErrorResponse(VolleyError error) {
         DialogAlert.show(context,
-                context.getResources().getString(R.string.err_auth_title),
-                context.getResources().getString(R.string.err_auth_text),
-                new DialogInterface.OnClickListener() {
+            context.getResources().getString(R.string.err_auth_title),
+            context.getResources().getString(R.string.err_auth_text),
+            new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((Activity)context).finish();
                     }
@@ -56,7 +56,7 @@ public class SeasonsListPresenter implements Response.Listener<ArrayList<Season>
         view.setAdapter(gridSeasonsAdapter);
 
         view.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            final GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
                 @Override public boolean onSingleTapUp(MotionEvent motionEvent) {
                     return true;
                 }

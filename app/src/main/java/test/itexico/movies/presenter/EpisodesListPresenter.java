@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,8 +34,8 @@ import test.itexico.movies.view.DialogAlert;
 public class EpisodesListPresenter implements Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
 
     private final ConstraintLayout header;
-    private Context context;
-    private RecyclerView recyclerView;
+    private final Context context;
+    private final RecyclerView recyclerView;
     @BindView(R.id.txt_season) TextView txtSeason;
     @BindView(R.id.txt_episodes) TextView txtEpisodes;
     @BindView(R.id.txt_rating) TextView txtRating;
@@ -65,9 +64,9 @@ public class EpisodesListPresenter implements Response.Listener<ArrayList<Episod
     @Override
     public void onErrorResponse(VolleyError error) {
         DialogAlert.show(context,
-                context.getResources().getString(R.string.err_auth_title),
-                context.getResources().getString(R.string.err_auth_text),
-                new DialogInterface.OnClickListener() {
+            context.getResources().getString(R.string.err_auth_title),
+            context.getResources().getString(R.string.err_auth_text),
+            new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((Activity)context).finish();
                     }

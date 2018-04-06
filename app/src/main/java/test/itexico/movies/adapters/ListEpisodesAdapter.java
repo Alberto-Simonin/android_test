@@ -7,10 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -19,8 +15,8 @@ import test.itexico.movies.R;
 import test.itexico.movies.model.Episode;
 
 public class ListEpisodesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
-    private ArrayList<Episode> data;
+    private final Context context;
+    private final ArrayList<Episode> data;
 
     public ListEpisodesAdapter(Context context, ArrayList<Episode> data) {
         this.context = context;

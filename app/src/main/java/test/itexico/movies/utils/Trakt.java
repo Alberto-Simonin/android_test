@@ -2,10 +2,10 @@ package test.itexico.movies.utils;
 
 public class Trakt {
 
-    private static String traktURL = "https://private-18a5d-trakt.apiary-proxy.com";
-    private static String clientID = "ee910a122f9dbf4808cb68cd4e935401d6806b51b9cc911f22d1eeefe730ed31";
+    private static final String traktURL = "https://private-18a5d-trakt.apiary-proxy.com";
 
     public static String getClientID(){
+        final String clientID = "ee910a122f9dbf4808cb68cd4e935401d6806b51b9cc911f22d1eeefe730ed31";
         return clientID;
     }
 
