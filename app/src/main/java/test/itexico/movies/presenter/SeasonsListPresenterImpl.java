@@ -15,14 +15,17 @@ import com.android.volley.VolleyError;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 import test.itexico.movies.R;
 import test.itexico.movies.adapters.GridSeasonsAdapter;
+import test.itexico.movies.model.Season;
 import test.itexico.movies.model.SeasonsListModelImpl;
 import test.itexico.movies.view.DialogAlert;
 import test.itexico.movies.view.EpisodesActivity;
 
 
-public class SeasonsListPresenterImpl implements Response.Listener<JSONArray>, Response.ErrorListener {
+public class SeasonsListPresenterImpl implements Response.Listener<ArrayList<Season>>, Response.ErrorListener {
 
     private final Context context;
     private final RecyclerView view;
@@ -51,7 +54,7 @@ public class SeasonsListPresenterImpl implements Response.Listener<JSONArray>, R
     }
 
     @Override
-    public void onResponse(JSONArray response) {
+    public void onResponse(ArrayList<Season> response) {
         gridSeasonsAdapter = new GridSeasonsAdapter(context, response);
         view.setAdapter(gridSeasonsAdapter);
 
@@ -69,14 +72,10 @@ public class SeasonsListPresenterImpl implements Response.Listener<JSONArray>, R
                     int i  = view.getChildAdapterPosition(viewChild);
                     Intent intent = new Intent(context, EpisodesActivity.class);
                     intent.putExtra(context.getResources().getString(R.string.key_sesionId), gridSeasonsAdapter.getItemId(i)+"");
-                    try {
-                        intent.putExtra(context.getResources().getString(R.string.key_seasonNum), gridSeasonsAdapter.getItem(i).getString("number"));
-                        intent.putExtra(context.getResources().getString(R.string.key_seasonEpisodes), gridSeasonsAdapter.getItem(i).getString("episode_count"));
-                        intent.putExtra(context.getResources().getString(R.string.key_seasonVotes), gridSeasonsAdapter.getItem(i).getString("votes"));
-                        intent.putExtra(context.getResources().getString(R.string.key_seasonRating), gridSeasonsAdapter.getItem(i).getString("rating"));
-                    } catch (JSONException ex) {
-                        ex.printStackTrace();
-                    }
+                    intent.putExtra(context.getResources().getString(R.string.key_seasonNum), gridSeasonsAdapter.getItem(i).getNumber());
+                    intent.putExtra(context.getResources().getString(R.string.key_seasonEpisodes), gridSeasonsAdapter.getItem(i).getEpisode_count());
+                    intent.putExtra(context.getResources().getString(R.string.key_seasonVotes), gridSeasonsAdapter.getItem(i).getVotes());
+                    intent.putExtra(context.getResources().getString(R.string.key_seasonRating), gridSeasonsAdapter.getItem(i).getRating());
                     context.startActivity(intent);
                 }
                 return false;
