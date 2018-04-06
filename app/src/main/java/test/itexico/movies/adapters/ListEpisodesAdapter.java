@@ -11,24 +11,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import test.itexico.movies.R;
+import test.itexico.movies.model.Episode;
 
 public class ListEpisodesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    private JSONArray data;
+    private ArrayList<Episode> data;
 
-    public ListEpisodesAdapter(Context context, JSONArray data) {
+    public ListEpisodesAdapter(Context context, ArrayList<Episode> data) {
         this.context = context;
         this.data = data;
     }
 
-    public Object getItem(int i) {
-        try {
-            return data.getJSONObject(i);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Episode getItem(int i) {
+        return data.get(i);
     }
 
     @Override
@@ -39,28 +37,19 @@ public class ListEpisodesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        try {
-            JSONObject item = (JSONObject) getItem(position);
-            ((ViewHolder)holder).txtEpisodeNum.setText(context.getResources().getString(R.string.lbl_episode_num)+ item.getString("number"));
-            ((ViewHolder)holder).txtEpisodeName.setText(item.getString("title"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Episode item = getItem(position);
+        ((ViewHolder)holder).txtEpisodeNum.setText(context.getResources().getString(R.string.lbl_episode_num)+ item.getNumber());
+        ((ViewHolder)holder).txtEpisodeName.setText(item.getTitle());
     }
 
     @Override
     public long getItemId(int i) {
-        try {
-            return ((JSONObject)getItem(i)).getInt("number");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return -1;
+        return getItem(i).getNumber();
     }
 
     @Override
     public int getItemCount() {
-        return data.length();
+        return data.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{

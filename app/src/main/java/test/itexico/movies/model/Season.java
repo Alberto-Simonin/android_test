@@ -107,7 +107,4 @@ public class Season {
         this.network = network;
     }
 
-    public Season() {
-
-    }
 }
