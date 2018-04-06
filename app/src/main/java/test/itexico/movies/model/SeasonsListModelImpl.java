@@ -11,7 +11,7 @@ import test.itexico.movies.managers.RequestManager;
 import test.itexico.movies.managers.StandardRequest;
 import test.itexico.movies.utils.Trakt;
 
-public class SeasonsListModelImpl implements SeasonsListModel {
+public class SeasonsListModelImpl {
 
     private final Context context;
 
@@ -19,7 +19,6 @@ public class SeasonsListModelImpl implements SeasonsListModel {
         this.context = context;
     }
 
-    @Override
     public void getData(Response.Listener<JSONArray> onResponse, Response.ErrorListener onError) {
         RequestManager requestManager = RequestManager.getInstance(context);
         String url = Trakt.getSeasonsURL();

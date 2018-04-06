@@ -22,7 +22,7 @@ import test.itexico.movies.view.DialogAlert;
 import test.itexico.movies.view.EpisodesActivity;
 
 
-public class SeasonsListPresenterImpl implements SeasonsListPresenter, Response.Listener<JSONArray>, Response.ErrorListener {
+public class SeasonsListPresenterImpl implements Response.Listener<JSONArray>, Response.ErrorListener {
 
     private final Context context;
     private final RecyclerView view;
@@ -33,7 +33,6 @@ public class SeasonsListPresenterImpl implements SeasonsListPresenter, Response.
         this.view = view;
     }
 
-    @Override
     public void populateSeasons() {
         SeasonsListModelImpl seasonsActivityModel = new SeasonsListModelImpl(this.context);
         seasonsActivityModel.getData(this, this);
