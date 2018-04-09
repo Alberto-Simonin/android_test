@@ -5,9 +5,7 @@ object Trakt {
     private val traktURL = "https://private-18a5d-trakt.apiary-proxy.com"
 
     val clientID: String
-        get() {
-            return "ee910a122f9dbf4808cb68cd4e935401d6806b51b9cc911f22d1eeefe730ed31"
-        }
+        get() = "ee910a122f9dbf4808cb68cd4e935401d6806b51b9cc911f22d1eeefe730ed31"
 
     val seasonsURL: String
         get() = "$traktURL/shows/game-of-thrones/seasons?extended=full"
