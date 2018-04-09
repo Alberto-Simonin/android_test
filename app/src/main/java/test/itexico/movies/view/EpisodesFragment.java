@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import test.itexico.movies.R;
 import test.itexico.movies.presenter.EpisodesListPresenter;
 
-public class EpisodesFragment extends Fragment {
+public class EpisodesFragment extends BaseFragment {
 
     @BindView(R.id.list_episodes) RecyclerView listEpisodes;
     @BindView(R.id.headerLayout) ConstraintLayout headerLayout;

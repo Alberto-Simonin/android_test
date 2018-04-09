@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import test.itexico.movies.R;
 import test.itexico.movies.presenter.SeasonsListPresenter;
 
-public class SeasonsFragment extends Fragment {
+public class SeasonsFragment extends BaseFragment {
 
     @BindView(R.id.grid_seasons) RecyclerView gridSeasons;
 
