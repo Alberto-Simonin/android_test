@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:paddingTop="80dp"
-            android:id="@+id/headerLayout">
+            android:id="@+id/header_layout">
 
             <ImageView
                 android:id="@+id/img_poster"
