@@ -9,21 +9,13 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
-
-import org.json.JSONException
-import org.json.JSONObject
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
+import org.json.JSONException
 import test.itexico.movies.R
 import test.itexico.movies.adapters.ListEpisodesAdapter
 import test.itexico.movies.managers.RequestManager
@@ -31,6 +23,7 @@ import test.itexico.movies.model.Episode
 import test.itexico.movies.model.EpisodesListModel
 import test.itexico.movies.utils.Trakt
 import test.itexico.movies.view.DialogAlert
+import java.util.*
 
 class EpisodesListPresenter(private val context: Context, private val header: ConstraintLayout, private val recyclerView: RecyclerView) : Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
     internal var txtSeason: TextView? = null

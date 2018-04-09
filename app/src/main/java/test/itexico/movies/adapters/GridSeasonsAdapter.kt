@@ -8,25 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
-
-import org.json.JSONException
-import org.json.JSONObject
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.seasons_list_item.view.*
+import org.json.JSONException
 import test.itexico.movies.R
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.model.Season
 import test.itexico.movies.utils.Trakt
+import java.util.*
 
 class GridSeasonsAdapter(private val context: Context, private val data: ArrayList<Season>) : RecyclerView.Adapter<GridSeasonsAdapter.ViewHolder>() {
 

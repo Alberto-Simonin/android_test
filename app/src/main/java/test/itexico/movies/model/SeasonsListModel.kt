@@ -1,20 +1,14 @@
 package test.itexico.movies.model
 
 import android.content.Context
-
 import com.android.volley.Request
 import com.android.volley.Response
 import com.google.gson.Gson
-
-import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
-
-import java.util.ArrayList
-
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.managers.StandardRequest
 import test.itexico.movies.utils.Trakt
+import java.util.*
 
 class SeasonsListModel(private val context: Context) {
 

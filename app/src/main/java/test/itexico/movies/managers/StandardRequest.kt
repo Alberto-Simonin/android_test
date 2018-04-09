@@ -2,12 +2,9 @@ package test.itexico.movies.managers
 
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-
 import org.json.JSONArray
-
-import java.util.HashMap
-
 import test.itexico.movies.utils.Trakt
+import java.util.*
 
 class StandardRequest(method: Int,
                       url: String,

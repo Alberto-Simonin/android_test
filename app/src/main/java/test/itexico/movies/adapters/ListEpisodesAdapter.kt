@@ -6,14 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import kotlinx.android.synthetic.main.episodes_list_item.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.Episode
+import java.util.*
 
 class ListEpisodesAdapter(private val context: Context, private val data: ArrayList<Episode>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

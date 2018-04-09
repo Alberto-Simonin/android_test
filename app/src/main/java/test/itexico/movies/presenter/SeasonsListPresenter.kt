@@ -7,19 +7,15 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.View
-
 import com.android.volley.Response
 import com.android.volley.VolleyError
-
-import java.util.ArrayList
-
 import test.itexico.movies.R
 import test.itexico.movies.adapters.GridSeasonsAdapter
 import test.itexico.movies.model.Season
 import test.itexico.movies.model.SeasonsListModel
 import test.itexico.movies.view.DialogAlert
 import test.itexico.movies.view.EpisodesActivity
+import java.util.*
 
 
 class SeasonsListPresenter(private val context: Context, private val view: RecyclerView) : Response.Listener<ArrayList<Season>>, Response.ErrorListener {
