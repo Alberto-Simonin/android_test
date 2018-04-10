@@ -1,14 +1,17 @@
 package test.itexico.movies.model
 
-import org.json.JSONObject
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 
-class Season(var number: Int,
-             var ids: JSONObject?,
-             var rating: String?,
-             var votes: String?,
-             var episode_count: String?,
-             var aired_episodes: String?,
-             var title: String?,
-             var overview: String?,
-             var first_aired: String?,
-             var network: String?)
+@Entity
+class Season(@PrimaryKey var number: Int,
+             @ColumnInfo var ids: IDs?,
+             @ColumnInfo var rating: String?,
+             @ColumnInfo var votes: String?,
+             @ColumnInfo var episode_count: String?,
+             @ColumnInfo var aired_episodes: String?,
+             @ColumnInfo var title: String?,
+             @ColumnInfo var overview: String?,
+             @ColumnInfo var first_aired: String?,
+             @ColumnInfo var network: String?)

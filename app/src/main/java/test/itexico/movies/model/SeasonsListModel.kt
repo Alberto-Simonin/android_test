@@ -5,6 +5,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.google.gson.Gson
 import org.json.JSONException
+import test.itexico.movies.database.AppDatabase
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.managers.StandardRequest
 import test.itexico.movies.utils.Trakt
@@ -22,7 +23,6 @@ class SeasonsListModel(private val context: Context) {
                 try {
                     val obj = response.getJSONObject(i)
                     val season = gson.fromJson(obj.toString(), Season::class.java)
-                    season.ids = obj.getJSONObject("ids")
                     seasonsList.add(season)
                 } catch (e: JSONException) {
                     e.printStackTrace()

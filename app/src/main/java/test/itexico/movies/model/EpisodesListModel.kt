@@ -22,7 +22,6 @@ class EpisodesListModel(private val context: Context) {
                 try {
                     val obj = response.getJSONObject(i)
                     val episode = gson.fromJson(obj.toString(), Episode::class.java)
-                    episode.ids = obj.getJSONObject("ids")
                     episodesList.add(episode)
                 } catch (e: JSONException) {
                     e.printStackTrace()
