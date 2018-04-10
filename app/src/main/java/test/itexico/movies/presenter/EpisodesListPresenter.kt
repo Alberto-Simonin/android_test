@@ -45,7 +45,7 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
 
     fun populateEpisodesFromSeason(seasonId: Int) {
         val episodesActivityModel = EpisodesListModel(this.context)
-        episodesActivityModel.getData(seasonId.toLong(), this, this)
+        episodesActivityModel.getData(seasonId, this, this)
     }
 
     override fun onErrorResponse(error: VolleyError) {
