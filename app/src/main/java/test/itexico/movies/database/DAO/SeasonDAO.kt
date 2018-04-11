@@ -1,5 +1,6 @@
 package test.itexico.movies.database.DAO
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import test.itexico.movies.model.Season
 
@@ -24,8 +25,8 @@ interface SeasonDAO {
     fun deleteAll(seasonList: List<Season>)
 
     @Query("Select * from season")
-    fun getAllSeasons(): List<Season>
+    fun getAllSeasons(): LiveData<List<Season>>
 
     @Query ("Select * from season where number=:number")
-    fun getSeason(number: Int): Season
+    fun getSeason(number: Int): LiveData<Season>
 }

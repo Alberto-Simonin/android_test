@@ -25,7 +25,7 @@ import test.itexico.movies.utils.Trakt
 import test.itexico.movies.view.DialogAlert
 import java.util.*
 
-class EpisodesListPresenter(private val context: Context, private val header: ConstraintLayout, private val recyclerView: RecyclerView) : Response.Listener<ArrayList<Episode>>, Response.ErrorListener {
+class EpisodesListPresenter(private val context: Context, private val header: ConstraintLayout, private val recyclerView: RecyclerView) : Response.ErrorListener{
     internal var txtSeason: TextView? = null
     internal var txtEpisodes: TextView? = null
     internal var txtRating: TextView? = null
@@ -43,11 +43,6 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
         txtVotes?.text = "${context.resources.getString(R.string.lbl_votes)} ${extras.getString(context.resources.getString(R.string.key_seasonVotes))}"
     }
 
-    fun populateEpisodesFromSeason(seasonId: Int) {
-        val episodesActivityModel = EpisodesListModel(this.context)
-        episodesActivityModel.getData(seasonId, this, this)
-    }
-
     override fun onErrorResponse(error: VolleyError) {
         DialogAlert.show(context,
                 context.resources.getString(R.string.err_auth_title),
@@ -55,7 +50,7 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
                 DialogInterface.OnClickListener { _, _ -> (context as Activity).finish() })
     }
 
-    override fun onResponse(response: ArrayList<Episode>) {
+    fun setData(response: ArrayList<Episode>) {
         val listEpisodesAdapter = ListEpisodesAdapter(context, response)
         recyclerView.adapter = listEpisodesAdapter
 
