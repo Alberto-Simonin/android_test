@@ -21,11 +21,9 @@ import java.util.*
 
 class EpisodesListModel(application: Application, seasonId: Int) : AndroidViewModel(application){
 
-    val observableEpisodes: MediatorLiveData<ArrayList<Episode>>
-    //var seasonId: Int = -1
+    private val observableEpisodes: MediatorLiveData<ArrayList<Episode>> = MediatorLiveData()
 
     init {
-        observableEpisodes = MediatorLiveData()
         var episodesList = ArrayList<Episode>()
         val context = application.applicationContext
         if (Network.isAvailable(context)) {
@@ -58,11 +56,12 @@ class EpisodesListModel(application: Application, seasonId: Int) : AndroidViewMo
     fun getData():MediatorLiveData<ArrayList<Episode>> {
         return observableEpisodes
     }
-}
 
-class EpisodesListModelFactory(private val mApplication: Application, private val seasonId: Int) : ViewModelProvider.NewInstanceFactory() {
+    class EpisodesListModelFactory(private val mApplication: Application, private val seasonId: Int) : ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return EpisodesListModel(mApplication, seasonId) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return EpisodesListModel(mApplication, seasonId) as T
+        }
     }
+
 }

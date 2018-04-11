@@ -14,7 +14,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.EpisodesListModel
-import test.itexico.movies.model.EpisodesListModelFactory
+import test.itexico.movies.model.EpisodesListModel.*
 import test.itexico.movies.presenter.EpisodesListPresenter
 
 class EpisodesFragment : Fragment(), LifecycleOwner {
