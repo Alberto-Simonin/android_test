@@ -31,6 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
+            //TODO change queries to working thread
             return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, DB_NAME).allowMainThreadQueries().build()
         }
     }

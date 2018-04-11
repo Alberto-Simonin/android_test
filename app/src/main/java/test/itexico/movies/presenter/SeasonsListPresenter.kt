@@ -1,10 +1,13 @@
 package test.itexico.movies.presenter
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.android.volley.Response
@@ -18,22 +21,17 @@ import test.itexico.movies.view.EpisodesActivity
 import java.util.*
 
 
-class SeasonsListPresenter(private val context: Context, private val view: RecyclerView) : Response.Listener<ArrayList<Season>>, Response.ErrorListener {
+class SeasonsListPresenter(private val context: Context, private val view: RecyclerView) {
     private var gridSeasonsAdapter: GridSeasonsAdapter? = null
 
-    fun populateSeasons() {
-        val seasonsActivityModel = SeasonsListModel(this.context)
-        seasonsActivityModel.getData(this, this)
-    }
-
-    override fun onErrorResponse(error: VolleyError) {
+    fun onErrorResponse(error: VolleyError) {
         DialogAlert.show(context,
                 context.resources.getString(R.string.err_auth_title),
                 context.resources.getString(R.string.err_auth_text),
                 DialogInterface.OnClickListener { _, _ -> (context as Activity).finish() })
     }
 
-    override fun onResponse(response: ArrayList<Season>) {
+    fun setData(response: ArrayList<Season>) {
         gridSeasonsAdapter = GridSeasonsAdapter(context, response)
         view.adapter = gridSeasonsAdapter
 

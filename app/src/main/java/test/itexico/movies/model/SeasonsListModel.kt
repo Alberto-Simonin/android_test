@@ -1,5 +1,10 @@
 package test.itexico.movies.model
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MediatorLiveData
+import android.arch.lifecycle.ViewModel
 import android.content.Context
 import com.android.volley.Request
 import com.android.volley.Response
@@ -14,15 +19,19 @@ import test.itexico.movies.utils.Network
 import test.itexico.movies.utils.Trakt
 import java.util.*
 
-class SeasonsListModel(private val context: Context) {
+class SeasonsListModel(application: Application): AndroidViewModel(application) {
 
-    fun getData(onResponseCallback: Response.Listener<ArrayList<Season>>, onError: Response.ErrorListener) {
+    val observableSeasons: MediatorLiveData<ArrayList<Season>>
+
+    init{
+        observableSeasons = MediatorLiveData()
+        var seasonsList = ArrayList<Season>()
+        val context = application.applicationContext
         if(Network.isAvailable(context)) {
             val requestManager = RequestManager.getInstance(context)
             val url = Trakt.seasonsURL
             val request = StandardRequest(Request.Method.GET, url, null, Response.Listener { response ->
                 val gson = Gson()
-                val seasonsList = ArrayList<Season>()
                 for (i in 0 until response.length()) {
                     try {
                         val obj = response.getJSONObject(i)
@@ -34,18 +43,23 @@ class SeasonsListModel(private val context: Context) {
                 }
 
                 AppDatabase.getInstance(context).seasonDAO().insertAll(seasonsList)
-
-                onResponseCallback.onResponse(seasonsList)
-            }, onError)
+                observableSeasons.postValue(seasonsList)
+                //onResponseCallback.onResponse(seasonsList)
+            }, Response.ErrorListener { VolleyError(context.resources.getString(R.string.err_no_data_text)) })
             requestManager.addToRequestQueue(request)
         }else{
-            val seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
+            seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
             if(seasonsList.size>0) {
-                onResponseCallback.onResponse(seasonsList)
+                //onResponseCallback.onResponse(seasonsList)
+                observableSeasons.postValue(seasonsList)
             }else{
-                onError.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
+                //onError.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
             }
         }
+    }
+
+    fun getData(): MediatorLiveData<ArrayList<Season>> {
+        return observableSeasons
     }
 
 
