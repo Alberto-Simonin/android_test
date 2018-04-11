@@ -21,10 +21,10 @@ import test.itexico.movies.view.EpisodesActivity
 import java.util.*
 
 
-class SeasonsListPresenter(private val context: Context, private val view: RecyclerView) {
+class SeasonsListPresenter(private val context: Context, private val view: RecyclerView): Response.ErrorListener {
     private var gridSeasonsAdapter: GridSeasonsAdapter? = null
 
-    fun onErrorResponse(error: VolleyError) {
+    override fun onErrorResponse(error: VolleyError) {
         DialogAlert.show(context,
                 context.resources.getString(R.string.err_auth_title),
                 context.resources.getString(R.string.err_auth_text),

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.android.volley.Response
 import kotlinx.android.synthetic.main.seasons_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.SeasonsListModel
@@ -30,7 +31,13 @@ class SeasonsFragment : Fragment(), LifecycleOwner{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(this).get(SeasonsListModel::class.java)
+        val viewModel = ViewModelProviders.of(this,
+                SeasonsListModel.SeasonsListModelFactory(
+                        this.activity.application,
+                        Response.ErrorListener {
+                            error -> seasonsActivityPresenter.onErrorResponse(error)
+                        }))
+                .get(SeasonsListModel::class.java)
         viewModel.getData().observe(this, android.arch.lifecycle.Observer {
             results -> seasonsActivityPresenter.setData(results!!)
         })

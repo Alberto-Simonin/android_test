@@ -3,6 +3,8 @@ package test.itexico.movies.model
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MediatorLiveData
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -16,7 +18,7 @@ import test.itexico.movies.utils.Network
 import test.itexico.movies.utils.Trakt
 import java.util.*
 
-class SeasonsListModel(application: Application): AndroidViewModel(application) {
+class SeasonsListModel(application: Application, errorListener: Response.ErrorListener): AndroidViewModel(application) {
 
     val observableSeasons: MediatorLiveData<ArrayList<Season>>
 
@@ -41,12 +43,14 @@ class SeasonsListModel(application: Application): AndroidViewModel(application) 
 
                 AppDatabase.getInstance(context).seasonDAO().insertAll(seasonsList)
                 observableSeasons.postValue(seasonsList)
-            }, Response.ErrorListener { VolleyError(context.resources.getString(R.string.err_no_data_text)) })
+            }, errorListener)
             requestManager.addToRequestQueue(request)
         }else{
             seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
             if(seasonsList.size>0) {
                 observableSeasons.postValue(seasonsList)
+            }else{
+                errorListener.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
             }
         }
     }
@@ -55,5 +59,11 @@ class SeasonsListModel(application: Application): AndroidViewModel(application) 
         return observableSeasons
     }
 
+    class SeasonsListModelFactory(private val mApplication: Application, private val errorListener: Response.ErrorListener) : ViewModelProvider.NewInstanceFactory() {
+
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return SeasonsListModel(mApplication, errorListener) as T
+        }
+    }
 
 }
