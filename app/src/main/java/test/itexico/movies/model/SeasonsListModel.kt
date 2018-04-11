@@ -2,10 +2,7 @@ package test.itexico.movies.model
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
-import android.content.Context
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -44,16 +41,12 @@ class SeasonsListModel(application: Application): AndroidViewModel(application) 
 
                 AppDatabase.getInstance(context).seasonDAO().insertAll(seasonsList)
                 observableSeasons.postValue(seasonsList)
-                //onResponseCallback.onResponse(seasonsList)
             }, Response.ErrorListener { VolleyError(context.resources.getString(R.string.err_no_data_text)) })
             requestManager.addToRequestQueue(request)
         }else{
             seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
             if(seasonsList.size>0) {
-                //onResponseCallback.onResponse(seasonsList)
                 observableSeasons.postValue(seasonsList)
-            }else{
-                //onError.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
             }
         }
     }
