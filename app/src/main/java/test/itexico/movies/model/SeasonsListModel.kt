@@ -21,11 +21,18 @@ import java.util.*
 class SeasonsListModel(application: Application, errorListener: Response.ErrorListener): AndroidViewModel(application) {
 
     val observableSeasons: MediatorLiveData<ArrayList<Season>>
+    val mApplication: Application
+    val errorListener: Response.ErrorListener
 
     init{
         observableSeasons = MediatorLiveData()
+        this.mApplication = application
+        this.errorListener = errorListener
+    }
+
+    fun getData(): MediatorLiveData<ArrayList<Season>> {
         var seasonsList = ArrayList<Season>()
-        val context = application.applicationContext
+        val context = mApplication.applicationContext
         if(Network.isAvailable(context)) {
             val requestManager = RequestManager.getInstance(context)
             val url = Trakt.seasonsURL
@@ -53,9 +60,6 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
                 errorListener.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
             }
         }
-    }
-
-    fun getData(): MediatorLiveData<ArrayList<Season>> {
         return observableSeasons
     }
 

@@ -22,10 +22,20 @@ import java.util.*
 class EpisodesListModel(application: Application, seasonId: Int, errorListener: Response.ErrorListener) : AndroidViewModel(application){
 
     private val observableEpisodes: MediatorLiveData<ArrayList<Episode>> = MediatorLiveData()
+    val episodesList: ArrayList<Episode>
+    val mApplication: Application
+    var seasonId: Int
+    val errorListener: Response.ErrorListener
 
     init {
-        var episodesList = ArrayList<Episode>()
-        val context = application.applicationContext
+        this.episodesList = ArrayList<Episode>()
+        this.mApplication = application
+        this.seasonId = seasonId
+        this.errorListener = errorListener
+    }
+
+    fun getData():MediatorLiveData<ArrayList<Episode>> {
+        val context = mApplication.applicationContext
         if (Network.isAvailable(context)) {
             val requestManager = RequestManager.getInstance(context)
             val url = Trakt.getEpisodesURL(seasonId.toString() + "")
@@ -54,9 +64,6 @@ class EpisodesListModel(application: Application, seasonId: Int, errorListener: 
             }
 
         }
-    }
-
-    fun getData():MediatorLiveData<ArrayList<Episode>> {
         return observableEpisodes
     }
 

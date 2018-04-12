@@ -24,6 +24,7 @@ class EpisodesFragment : BaseFragment(), LifecycleObserver{
     internal var listEpisodes: RecyclerView? = null
     internal var headerLayout: ConstraintLayout? = null
     lateinit var episodesActivityPresenter: EpisodesListPresenter
+    lateinit var viewModel: EpisodesListModel
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.episodes_fragment, container, false)
@@ -44,21 +45,21 @@ class EpisodesFragment : BaseFragment(), LifecycleObserver{
                     DialogInterface.OnClickListener { _, _ -> activity.finish() })
         }
 
+        viewModel = ViewModelProviders.of(this,
+                EpisodesListModelFactory(
+                        this.activity.application,
+                        seasonId,
+                        Response.ErrorListener { error ->
+                            episodesActivityPresenter.onErrorResponse(error)
+                        }))
+                .get(EpisodesListModel::class.java)
+
         return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
-            val seasonId = arguments.getInt(resources.getString(R.string.key_seasonNum))
-            val viewModel = ViewModelProviders.of(this,
-                    EpisodesListModelFactory(
-                            this.activity.application,
-                            seasonId,
-                            Response.ErrorListener { error ->
-                                episodesActivityPresenter.onErrorResponse(error)
-                            }))
-                    .get(EpisodesListModel::class.java)
             viewModel.getData().observe(this, android.arch.lifecycle.Observer { results ->
                 episodesActivityPresenter.setData(results!!)
             })
