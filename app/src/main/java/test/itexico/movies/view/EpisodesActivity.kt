@@ -26,6 +26,7 @@ class EpisodesActivity : AppCompatActivity(), LifecycleOwner {
             episodesFragment.arguments = extras
             fragmentTransaction.add(R.id.main_container, episodesFragment)
             fragmentTransaction.commit()
+            lifecycle.addObserver(episodesFragment)
         }
     }
 
