@@ -1,7 +1,6 @@
 package test.itexico.movies.view
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModelProviders
+import android.arch.lifecycle.*
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -14,11 +13,11 @@ import kotlinx.android.synthetic.main.seasons_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.SeasonsListModel
 import test.itexico.movies.presenter.SeasonsListPresenter
+import android.arch.lifecycle.Lifecycle.Event.*
 
-class SeasonsFragment : Fragment(), LifecycleOwner{
+class SeasonsFragment : Fragment(), LifecycleObserver {
 
     internal var gridSeasons: RecyclerView? = null
-
     lateinit var seasonsActivityPresenter: SeasonsListPresenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,15 +30,17 @@ class SeasonsFragment : Fragment(), LifecycleOwner{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val viewModel = ViewModelProviders.of(this,
-                SeasonsListModel.SeasonsListModelFactory(
-                        this.activity.application,
-                        Response.ErrorListener {
-                            error -> seasonsActivityPresenter.onErrorResponse(error)
-                        }))
-                .get(SeasonsListModel::class.java)
-        viewModel.getData().observe(this, android.arch.lifecycle.Observer {
-            results -> seasonsActivityPresenter.setData(results!!)
-        })
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
+            val viewModel = ViewModelProviders.of(this,
+                    SeasonsListModel.SeasonsListModelFactory(
+                            this.activity.application,
+                            Response.ErrorListener { error ->
+                                seasonsActivityPresenter.onErrorResponse(error)
+                            }))
+                    .get(SeasonsListModel::class.java)
+            viewModel.getData().observe(this, android.arch.lifecycle.Observer { results ->
+                seasonsActivityPresenter.setData(results!!)
+            })
+        }
     }
 }
