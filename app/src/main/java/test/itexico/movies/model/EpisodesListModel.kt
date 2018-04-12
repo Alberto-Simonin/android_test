@@ -1,12 +1,10 @@
 package test.itexico.movies.model
 
-import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import android.content.DialogInterface
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -18,7 +16,6 @@ import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.managers.StandardRequest
 import test.itexico.movies.utils.Network
 import test.itexico.movies.utils.Trakt
-import test.itexico.movies.view.DialogAlert
 import java.util.*
 
 

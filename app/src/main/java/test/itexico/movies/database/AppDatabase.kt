@@ -8,7 +8,6 @@ import android.content.Context
 import test.itexico.movies.database.DAO.EpisodeDAO
 import test.itexico.movies.database.DAO.SeasonDAO
 import test.itexico.movies.model.Episode
-import test.itexico.movies.model.IDs
 import test.itexico.movies.model.Season
 
 @Database(entities = arrayOf(Season::class, Episode::class), version = 1)

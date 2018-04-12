@@ -2,7 +2,6 @@ package test.itexico.movies.database
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
-import org.json.JSONObject
 import test.itexico.movies.model.Episode
 import test.itexico.movies.model.IDs
 import test.itexico.movies.model.Season

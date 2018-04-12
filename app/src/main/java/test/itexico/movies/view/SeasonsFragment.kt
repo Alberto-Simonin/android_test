@@ -1,6 +1,8 @@
 package test.itexico.movies.view
 
-import android.arch.lifecycle.*
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -13,9 +15,8 @@ import kotlinx.android.synthetic.main.seasons_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.SeasonsListModel
 import test.itexico.movies.presenter.SeasonsListPresenter
-import android.arch.lifecycle.Lifecycle.Event.*
 
-class SeasonsFragment : Fragment(), LifecycleObserver {
+class SeasonsFragment : BaseFragment(), LifecycleObserver {
 
     internal var gridSeasons: RecyclerView? = null
     lateinit var seasonsActivityPresenter: SeasonsListPresenter

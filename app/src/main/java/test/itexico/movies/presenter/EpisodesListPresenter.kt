@@ -20,7 +20,6 @@ import test.itexico.movies.R
 import test.itexico.movies.adapters.ListEpisodesAdapter
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.model.Episode
-import test.itexico.movies.model.EpisodesListModel
 import test.itexico.movies.utils.Trakt
 import test.itexico.movies.view.DialogAlert
 import java.util.*

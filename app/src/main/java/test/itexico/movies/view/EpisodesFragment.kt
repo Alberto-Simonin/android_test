@@ -2,7 +2,6 @@ package test.itexico.movies.view
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
 import android.os.Bundle
@@ -17,10 +16,10 @@ import com.android.volley.Response
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.EpisodesListModel
-import test.itexico.movies.model.EpisodesListModel.*
+import test.itexico.movies.model.EpisodesListModel.EpisodesListModelFactory
 import test.itexico.movies.presenter.EpisodesListPresenter
 
-class EpisodesFragment : Fragment(), LifecycleObserver{
+class EpisodesFragment : BaseFragment(), LifecycleObserver{
 
     internal var listEpisodes: RecyclerView? = null
     internal var headerLayout: ConstraintLayout? = null
