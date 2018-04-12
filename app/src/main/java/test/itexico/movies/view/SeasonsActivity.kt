@@ -1,12 +1,13 @@
 package test.itexico.movies.view
 
+import android.arch.lifecycle.LifecycleOwner
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
 import kotlinx.android.synthetic.main.activity_container.*
 import test.itexico.movies.R
 
-class SeasonsActivity : AppCompatActivity() {
+class SeasonsActivity : AppCompatActivity(), LifecycleOwner {
 
     internal var container: FrameLayout? = null
 
@@ -20,8 +21,10 @@ class SeasonsActivity : AppCompatActivity() {
             }
             val fragmentManager = supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.add(R.id.main_container, SeasonsFragment())
+            val seasonsFragment = SeasonsFragment()
+            fragmentTransaction.add(R.id.main_container, seasonsFragment)
             fragmentTransaction.commit()
+            lifecycle.addObserver(seasonsFragment)
         }
     }
 }

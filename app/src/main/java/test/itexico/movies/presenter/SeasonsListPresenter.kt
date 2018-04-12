@@ -1,13 +1,10 @@
 package test.itexico.movies.presenter
 
 import android.app.Activity
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.android.volley.Response
@@ -15,7 +12,6 @@ import com.android.volley.VolleyError
 import test.itexico.movies.R
 import test.itexico.movies.adapters.GridSeasonsAdapter
 import test.itexico.movies.model.Season
-import test.itexico.movies.model.SeasonsListModel
 import test.itexico.movies.view.DialogAlert
 import test.itexico.movies.view.EpisodesActivity
 import java.util.*
