@@ -9,7 +9,6 @@ import com.android.volley.toolbox.Volley
 class RequestManager private constructor(context: Context) {
 
     var requestQueue: RequestQueue? = null
-        private set
 
     init {
         if (requestQueue == null) {

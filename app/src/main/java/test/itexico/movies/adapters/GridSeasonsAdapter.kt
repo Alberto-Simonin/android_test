@@ -60,7 +60,7 @@ class GridSeasonsAdapter(private val context: Context, private val data: ArrayLi
         requestManager.addToRequestQueue(request)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imgCover: ImageView? = null
         var txtSeason: TextView? = null
         var txtEpisodes: TextView? = null

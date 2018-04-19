@@ -34,9 +34,13 @@ class EpisodesListModel(application: Application, seasonId: Int, errorListener: 
         this.errorListener = errorListener
     }
 
+    fun networkIsAvailable():Boolean{
+        return Network.isAvailable(mApplication.applicationContext)
+    }
+
     fun getData():MediatorLiveData<ArrayList<Episode>> {
         val context = mApplication.applicationContext
-        if (Network.isAvailable(context)) {
+        if (networkIsAvailable()) {
             val requestManager = RequestManager.getInstance(context)
             val url = Trakt.getEpisodesURL(seasonId.toString() + "")
             val request = StandardRequest(method = Request.Method.GET, url = url, successlistener = Response.Listener { response ->
