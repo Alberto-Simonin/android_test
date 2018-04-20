@@ -25,17 +25,8 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
     var seasonsList = ArrayList<Season>()
 
     init{
-        //observableSeasons = MediatorLiveData()
         this.mApplication = application
         this.errorListener = errorListener
-    }
-
-    fun networkIsAvailable():Boolean{
-        return Network.isAvailable(mApplication.applicationContext)
-    }
-
-    fun getRequestManagerInstance():RequestManager{
-        return RequestManager.getInstance(mApplication.applicationContext)
     }
 
     fun getStandardRequest(url: String):StandardRequest{
@@ -54,6 +45,30 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
             AppDatabase.getInstance(mApplication.applicationContext).seasonDAO().insertAll(seasonsList)
             getObservableSeasonsList().postValue(seasonsList)
         }, getErrorListenerReference())
+    }
+
+    fun getData(): MediatorLiveData<ArrayList<Season>> {
+        if(networkIsAvailable()) {
+            val url = Trakt.seasonsURL
+            val request = getStandardRequest(url)
+            getRequestManagerInstance().addToRequestQueue(request)
+        }else{
+            seasonsList = getSeasonsInfoFromDB()
+            if(getSeasonsArayList().size > 0) {
+                getObservableSeasonsList().postValue(getSeasonsArayList())
+            }else{
+                getErrorListenerReference().onErrorResponse(VolleyError(getErrorMessage()))
+            }
+        }
+        return getObservableSeasonsList()
+    }
+
+    fun networkIsAvailable():Boolean{
+        return Network.isAvailable(mApplication.applicationContext)
+    }
+
+    fun getRequestManagerInstance():RequestManager{
+        return RequestManager.getInstance(mApplication.applicationContext)
     }
 
     fun getSeasonDAO():SeasonDAO{
@@ -75,29 +90,12 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
     fun getErrorListenerReference(): Response.ErrorListener{
         return errorListener
     }
-    
-    fun getData(): MediatorLiveData<ArrayList<Season>> {
-        if(networkIsAvailable()) {
-            val url = Trakt.seasonsURL
-            val request = getStandardRequest(url)
-            getRequestManagerInstance().addToRequestQueue(request)
-        }else{
-            seasonsList = getSeasonsInfoFromDB()
-            if(getSeasonsArayList().size > 0) {
-                getObservableSeasonsList().postValue(getSeasonsArayList())
-            }else{
-                getErrorListenerReference().onErrorResponse(VolleyError(getErrorMessage()))
-            }
-        }
-        return getObservableSeasonsList()
-    }
 
     fun getErrorMessage(): String{
         return mApplication.applicationContext.resources.getString(R.string.err_no_data_text)
     }
 
     class SeasonsListModelFactory(private val mApplication: Application, private val errorListener: Response.ErrorListener) : ViewModelProvider.NewInstanceFactory() {
-
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return SeasonsListModel(mApplication, errorListener) as T
         }

@@ -28,6 +28,13 @@ class GridSeasonsAdapterTest {
         testAdapter = GridSeasonsAdapter(mockContext, seasonsList)
     }
 
+    @Test
+    fun createWithResponseEmpty() {
+        seasonsList.clear()
+        val testAdapter = GridSeasonsAdapter(mockContext, seasonsList)
+        Assert.assertEquals(0, testAdapter.itemCount)
+    }
+
     @After
     fun tearDown() {
         seasonsList.clear()
