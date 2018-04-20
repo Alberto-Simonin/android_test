@@ -29,10 +29,15 @@ class GridSeasonsAdapterTest {
     }
 
     @Test
+    fun createWithResponseFull() {
+        Assert.assertEquals(2, testAdapter.itemCount)
+    }
+
+    @Test
     fun createWithResponseEmpty() {
         seasonsList.clear()
-        val testAdapter = GridSeasonsAdapter(mockContext, seasonsList)
-        Assert.assertEquals(0, testAdapter.itemCount)
+        val testAdapterEmpty = GridSeasonsAdapter(mockContext, seasonsList)
+        Assert.assertEquals(0, testAdapterEmpty.itemCount)
     }
 
     @After
