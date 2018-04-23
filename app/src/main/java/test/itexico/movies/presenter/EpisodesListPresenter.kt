@@ -16,15 +16,17 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import org.json.JSONException
+import org.json.JSONObject
 import test.itexico.movies.R
 import test.itexico.movies.adapters.ListEpisodesAdapter
+import test.itexico.movies.managers.ImageRequest
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.model.Episode
 import test.itexico.movies.utils.Trakt
 import test.itexico.movies.view.DialogAlert
 import java.util.*
 
-class EpisodesListPresenter(private val context: Context, private val header: ConstraintLayout, private val recyclerView: RecyclerView) : Response.ErrorListener{
+class EpisodesListPresenter(private val context: Context, val header: ConstraintLayout, val recyclerView: RecyclerView) : Response.ErrorListener{
     internal var txtSeason: TextView? = null
     internal var txtEpisodes: TextView? = null
     internal var txtRating: TextView? = null
@@ -50,13 +52,12 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
     }
 
     fun setData(response: ArrayList<Episode>) {
-        val listEpisodesAdapter = ListEpisodesAdapter(context, response)
-        recyclerView.adapter = listEpisodesAdapter
+        getView().adapter = getListEpisodesAdapter(response)
 
-        val requestManager = RequestManager.getInstance(context)
-        val i = response[0].season.toString() + ""
-        val url = Trakt.getImagesService(i)
-        val request = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
+        val seasonNum = response[0].season.toString()
+        val url = buildRequestURL(seasonNum)
+
+        val requestCover = getImageRequest(url, Response.Listener { response ->
             try {
                 val path = response.getJSONArray("posters").getJSONObject(1).getString("file_path")
                 val url = Trakt.getImagesURL(path, "200")
@@ -65,8 +66,7 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
                 e.printStackTrace()
             }
         }, Response.ErrorListener { error -> Log.d("Err ", error.toString()) })
-
-        val requestPoster = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
+        val requestPoster = getImageRequest(url, Response.Listener { response ->
             try {
                 val path = response.getJSONArray("posters").getJSONObject(1).getString("file_path")
                 val url = Trakt.getImagesURL(path, "300")
@@ -76,8 +76,31 @@ class EpisodesListPresenter(private val context: Context, private val header: Co
             }
         }, Response.ErrorListener { error -> Log.d("Err ", error.toString()) })
 
+        getRequestManagerInstance().addToRequestQueue(requestCover)
+        getRequestManagerInstance().addToRequestQueue(requestPoster)
+    }
 
-        requestManager.addToRequestQueue(request)
-        requestManager.addToRequestQueue(requestPoster)
+    fun buildRequestURL(seasonNum: String): String{
+        return Trakt.getImagesService(seasonNum)
+    }
+
+    fun getView(): RecyclerView{
+        return recyclerView
+    }
+
+    fun getListEpisodesAdapter(response: ArrayList<Episode>): ListEpisodesAdapter {
+        return ListEpisodesAdapter(getContext(), response)
+    }
+
+    fun getImageRequest(url: String, successListener: Response.Listener<JSONObject>, errorListener: Response.ErrorListener ): ImageRequest {
+        return ImageRequest(Request.Method.GET, url, null, successListener, errorListener)
+    }
+
+    fun getRequestManagerInstance(): RequestManager{
+        return RequestManager.getInstance(getContext())
+    }
+
+    fun getContext():Context{
+        return context
     }
 }
