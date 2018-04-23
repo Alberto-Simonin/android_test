@@ -1,4 +1,4 @@
-package test.itexico.movies.view
+package test.itexico.movies.view.components
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

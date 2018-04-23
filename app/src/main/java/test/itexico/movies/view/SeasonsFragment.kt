@@ -4,7 +4,6 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,6 +14,7 @@ import kotlinx.android.synthetic.main.seasons_fragment.view.*
 import test.itexico.movies.R
 import test.itexico.movies.model.SeasonsListModel
 import test.itexico.movies.presenter.SeasonsListPresenter
+import test.itexico.movies.view.components.BaseFragment
 
 class SeasonsFragment : BaseFragment(), LifecycleObserver {
 

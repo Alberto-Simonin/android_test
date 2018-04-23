@@ -1,4 +1,4 @@
-package test.itexico.movies.view
+package test.itexico.movies.view.components
 
 import android.app.AlertDialog
 import android.content.Context

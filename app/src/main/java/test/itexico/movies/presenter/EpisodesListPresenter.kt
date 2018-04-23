@@ -22,7 +22,7 @@ import test.itexico.movies.managers.ImageRequest
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.model.objects.Episode
 import test.itexico.movies.utils.Trakt
-import test.itexico.movies.view.DialogAlert
+import test.itexico.movies.view.components.DialogAlert
 import java.util.*
 
 class EpisodesListPresenter(private val context: Context, val header: ConstraintLayout, val recyclerView: RecyclerView) : Response.ErrorListener{

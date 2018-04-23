@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,6 +17,8 @@ import test.itexico.movies.R
 import test.itexico.movies.model.EpisodesListModel
 import test.itexico.movies.model.EpisodesListModel.EpisodesListModelFactory
 import test.itexico.movies.presenter.EpisodesListPresenter
+import test.itexico.movies.view.components.BaseFragment
+import test.itexico.movies.view.components.DialogAlert
 
 class EpisodesFragment : BaseFragment(), LifecycleObserver{
 
