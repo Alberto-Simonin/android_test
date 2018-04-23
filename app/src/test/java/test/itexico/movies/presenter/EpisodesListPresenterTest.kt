@@ -2,12 +2,10 @@ package test.itexico.movies.presenter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import com.android.volley.RequestQueue
 import com.google.gson.Gson
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import test.itexico.movies.adapters.ListEpisodesAdapter
 import test.itexico.movies.managers.ImageRequest
 import test.itexico.movies.managers.RequestManager
