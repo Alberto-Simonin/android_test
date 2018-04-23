@@ -8,7 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.mock
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Season
 
 class GridSeasonsAdapterTest {
 

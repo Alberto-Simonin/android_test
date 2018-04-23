@@ -9,7 +9,7 @@ import org.junit.Test
 import test.itexico.movies.adapters.ListEpisodesAdapter
 import test.itexico.movies.managers.ImageRequest
 import test.itexico.movies.managers.RequestManager
-import test.itexico.movies.model.Episode
+import test.itexico.movies.model.objects.Episode
 
 class EpisodesListPresenterTest {
 

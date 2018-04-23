@@ -8,7 +8,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
-import test.itexico.movies.model.Episode
+import test.itexico.movies.model.objects.Episode
 
 class ListEpisodesAdapterTest {
 

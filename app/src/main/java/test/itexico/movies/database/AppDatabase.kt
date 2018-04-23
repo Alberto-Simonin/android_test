@@ -7,8 +7,8 @@ import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import test.itexico.movies.database.DAO.EpisodeDAO
 import test.itexico.movies.database.DAO.SeasonDAO
-import test.itexico.movies.model.Episode
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Episode
+import test.itexico.movies.model.objects.Season
 
 @Database(entities = arrayOf(Season::class, Episode::class), version = 1)
 @TypeConverters(DataConverters::class)

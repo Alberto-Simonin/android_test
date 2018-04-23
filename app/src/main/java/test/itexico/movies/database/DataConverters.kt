@@ -2,9 +2,9 @@ package test.itexico.movies.database
 
 import android.arch.persistence.room.TypeConverter
 import com.google.gson.Gson
-import test.itexico.movies.model.Episode
-import test.itexico.movies.model.IDs
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Episode
+import test.itexico.movies.model.objects.IDs
+import test.itexico.movies.model.objects.Season
 
 class DataConverters {
 

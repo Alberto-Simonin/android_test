@@ -1,4 +1,4 @@
-package test.itexico.movies.model
+package test.itexico.movies.model.objects
 
 class IDs(val trakt: String ="",
           val tvdb: String ="",

@@ -2,7 +2,7 @@ package test.itexico.movies.database.DAO
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Season
 
 @Dao
 interface SeasonDAO {

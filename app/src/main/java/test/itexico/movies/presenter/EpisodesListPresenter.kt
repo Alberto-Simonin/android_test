@@ -12,7 +12,6 @@ import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import org.json.JSONException
@@ -21,7 +20,7 @@ import test.itexico.movies.R
 import test.itexico.movies.adapters.ListEpisodesAdapter
 import test.itexico.movies.managers.ImageRequest
 import test.itexico.movies.managers.RequestManager
-import test.itexico.movies.model.Episode
+import test.itexico.movies.model.objects.Episode
 import test.itexico.movies.utils.Trakt
 import test.itexico.movies.view.DialogAlert
 import java.util.*

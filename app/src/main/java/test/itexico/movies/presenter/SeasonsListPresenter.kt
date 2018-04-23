@@ -11,7 +11,7 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import test.itexico.movies.R
 import test.itexico.movies.adapters.GridSeasonsAdapter
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Season
 import test.itexico.movies.view.DialogAlert
 import test.itexico.movies.view.EpisodesActivity
 import java.util.*

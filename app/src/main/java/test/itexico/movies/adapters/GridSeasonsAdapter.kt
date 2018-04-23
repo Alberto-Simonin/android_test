@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.seasons_list_item.view.*
 import org.json.JSONException
 import test.itexico.movies.R
 import test.itexico.movies.managers.RequestManager
-import test.itexico.movies.model.Season
+import test.itexico.movies.model.objects.Season
 import test.itexico.movies.utils.Trakt
 import java.util.*
 

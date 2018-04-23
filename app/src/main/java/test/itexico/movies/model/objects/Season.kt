@@ -1,4 +1,4 @@
-package test.itexico.movies.model
+package test.itexico.movies.model.objects
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity

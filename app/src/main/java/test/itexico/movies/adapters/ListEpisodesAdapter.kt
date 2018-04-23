@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import kotlinx.android.synthetic.main.episodes_list_item.view.*
 import test.itexico.movies.R
-import test.itexico.movies.model.Episode
+import test.itexico.movies.model.objects.Episode
 import java.util.*
 
 class ListEpisodesAdapter(private val context: Context, private val data: ArrayList<Episode>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

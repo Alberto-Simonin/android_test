@@ -11,6 +11,7 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.managers.StandardRequest
+import test.itexico.movies.model.objects.Season
 
 class SeasonsListModelTest() {
 

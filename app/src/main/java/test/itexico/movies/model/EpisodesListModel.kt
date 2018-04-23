@@ -14,6 +14,7 @@ import test.itexico.movies.R
 import test.itexico.movies.database.AppDatabase
 import test.itexico.movies.managers.RequestManager
 import test.itexico.movies.managers.StandardRequest
+import test.itexico.movies.model.objects.Episode
 import test.itexico.movies.utils.Network
 import test.itexico.movies.utils.Trakt
 import java.util.*
