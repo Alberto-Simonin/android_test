@@ -1,10 +1,9 @@
 package test.itexico.movies.model
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.*
+import android.arch.paging.LivePagedListBuilder
+import android.arch.paging.PagedList
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -30,9 +29,9 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
         this.errorListener = errorListener
     }
 
-    fun getData(): MediatorLiveData<ArrayList<Season>> {
-        var seasonsList = ArrayList<Season>()
+    fun getData(): LiveData<PagedList<Season>> {
         val context = mApplication.applicationContext
+        val seasonsList = ArrayList<Season>()
         if(Network.isAvailable(context)) {
             val requestManager = RequestManager.getInstance(context)
             val url = Trakt.seasonsURL
@@ -52,14 +51,17 @@ class SeasonsListModel(application: Application, errorListener: Response.ErrorLi
                 observableSeasons.postValue(seasonsList)
             }, errorListener)
             requestManager.addToRequestQueue(request)
-        }else{
-            seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
+        }
+        var observableSeasons = LivePagedListBuilder(AppDatabase.getInstance(context).seasonDAO().getAllSeasons(), 10).build()
+        /*else{
+            //seasonsList = AppDatabase.getInstance(context).seasonDAO().getAllSeasons() as ArrayList<Season>
+
             if(seasonsList.size>0) {
                 observableSeasons.postValue(seasonsList)
             }else{
                 errorListener.onErrorResponse(VolleyError(context.resources.getString(R.string.err_no_data_text)))
             }
-        }
+        }*/
         return observableSeasons
     }
 

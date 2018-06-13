@@ -1,6 +1,8 @@
 package test.itexico.movies.presenter
 
 import android.app.Activity
+import android.arch.lifecycle.LiveData
+import android.arch.paging.PagedList
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -27,7 +29,7 @@ class SeasonsListPresenter(private val context: Context, private val view: Recyc
                 DialogInterface.OnClickListener { _, _ -> (context as Activity).finish() })
     }
 
-    fun setData(response: ArrayList<Season>) {
+    fun setData(response: PagedList<Season>) {
         gridSeasonsAdapter = GridSeasonsAdapter(context, response)
         view.adapter = gridSeasonsAdapter
 

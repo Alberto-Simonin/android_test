@@ -1,6 +1,9 @@
 package test.itexico.movies.adapters
 
+import android.arch.paging.PagedList
+import android.arch.paging.PagedListAdapter
 import android.content.Context
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,9 +23,42 @@ import test.itexico.movies.model.Season
 import test.itexico.movies.utils.Trakt
 import java.util.*
 
-class GridSeasonsAdapter(private val context: Context, private val data: ArrayList<Season>) : RecyclerView.Adapter<GridSeasonsAdapter.ViewHolder>() {
+class GridSeasonsAdapter(private val context: Context, private val data: PagedList<Season>) : PagedListAdapter<Season, GridSeasonsAdapter.ViewHolder>(DiffCallback() ) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewLayout = LayoutInflater.from(parent.context).inflate(R.layout.seasons_list_item, parent, false)
+        return ViewHolder(viewLayout)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        viewHolder.txtSeason?.text = "${context.resources.getString(R.string.lbl_season)} ${item?.number}"
+        viewHolder.txtEpisodes?.text = "${context.resources.getString(R.string.lbl_episodes)} ${item?.episode_count}"
+        viewHolder.txtRating?.text = "${context.resources.getString(R.string.lbl_rating)} ${item?.rating?.substring(0, 4)}"
+
+        val requestManager = RequestManager.getInstance(context)
+        val url = Trakt.getImagesService(position.toString() + "")
+
+        val request = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
+            try {
+                val path = response.getJSONArray("posters").getJSONObject(0).getString("file_path")
+                val url = Trakt.getImagesURL(path, "500")
+                Picasso.get().load(url).into(viewHolder.imgCover)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }, Response.ErrorListener { error -> Log.d("Err ", error.toString()) })
+        requestManager.addToRequestQueue(request)
+    }
+
+    public override fun getItem(i: Int): Season {
+        return data.get(i)!!
+    }
 
     override fun getItemId(i: Int): Long {
+        return getItem(i).number.toLong()
+    }
+
+    /*override fun getItemId(i: Int): Long {
         return data[i].number.toLong()
     }
 
@@ -58,7 +94,7 @@ class GridSeasonsAdapter(private val context: Context, private val data: ArrayLi
             }
         }, Response.ErrorListener { error -> Log.d("Err ", error.toString()) })
         requestManager.addToRequestQueue(request)
-    }
+    }*/
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imgCover: ImageView? = null
@@ -72,5 +108,12 @@ class GridSeasonsAdapter(private val context: Context, private val data: ArrayLi
             txtEpisodes = itemView.txt_episodes
             txtRating = itemView.txt_rating
         }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<Season>(){
+        override fun areItemsTheSame(oldItem: Season?, newItem: Season?): Boolean = oldItem?.number == newItem?.number
+
+        override fun areContentsTheSame(oldItem: Season?, newItem: Season?): Boolean = oldItem?.title == newItem?.title
+
     }
 }
